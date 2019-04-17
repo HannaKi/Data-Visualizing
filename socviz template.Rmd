@@ -244,7 +244,7 @@ p <- ggplot(data = gapminder,
 ggsave(here("output", "figures", "testikuvaaja.png"), plot = p)
 ```
 
-# Kokeiluja 
+### Kokeiluja 
 
 ```{r}
 p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
@@ -328,7 +328,8 @@ p <- ggplot(data = gapminder,
                           y = gdpPercap))
 p + geom_line(aes(group=country)) 
 ```
-# Ruudukot tiedon esittämisen apuna
+
+### Ruudukot tiedon esittämisen apuna
 
 Fasetilla voidaan jakaa kuva useampaan 
 
