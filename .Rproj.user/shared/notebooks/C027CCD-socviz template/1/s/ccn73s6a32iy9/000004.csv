@@ -1,0 +1,6 @@
+"0","p <- ggplot(data = gapminder,"
+"0","            mapping = aes(x = gdpPercap,"
+"0","                          y = lifeExp)) "
+"0","p + geom_point(alpha = 0.3) +"
+"0","    geom_smooth(color = ""orange"", se = FALSE, size = 8, method = ""lm"") +"
+"0","    scale_x_log10()"

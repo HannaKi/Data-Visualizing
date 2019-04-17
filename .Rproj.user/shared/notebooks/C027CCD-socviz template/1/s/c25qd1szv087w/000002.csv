@@ -1,0 +1,4 @@
+"0","p <- ggplot(data = gapminder, mapping = aes(x = pop, y = lifeExp))"
+"0","p + geom_smooth(method = ""loess"") +"
+"0","    geom_point(mapping = aes(color = continent)) +"
+"0","    scale_x_sqrt() "

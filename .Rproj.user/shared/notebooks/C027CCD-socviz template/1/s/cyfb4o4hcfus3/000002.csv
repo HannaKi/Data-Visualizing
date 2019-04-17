@@ -1,0 +1,2 @@
+"0","p <- ggplot(data = gapminder, mapping = aes(x = year, y = gdpPercap))"
+"0","p + geom_line(aes(group = country)) + facet_wrap(~ continent)"

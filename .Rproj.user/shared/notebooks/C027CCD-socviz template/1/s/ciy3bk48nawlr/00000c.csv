@@ -1,0 +1,8 @@
+"0","p <- ggplot(data = gapminder,"
+"0","            mapping = aes(x = gdpPercap,"
+"0","                          y = lifeExp)) +"
+"0","    geom_point(mapping = aes(color = log(pop))) +"
+"0","    scale_x_log10()"
+"0","ggsave(here(""output"", ""figures"", ""testikuvaaja.png""), plot = p)"
+"2","Saving 7 x 7 in image
+"

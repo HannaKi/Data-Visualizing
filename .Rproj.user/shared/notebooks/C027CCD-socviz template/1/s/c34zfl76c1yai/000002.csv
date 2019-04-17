@@ -1,0 +1,4 @@
+"0","p <- ggplot(data = gapminder,"
+"0","            mapping = aes(x = year,"
+"0","                          y = gdpPercap))"
+"0","p + geom_line(aes(group=country)) "

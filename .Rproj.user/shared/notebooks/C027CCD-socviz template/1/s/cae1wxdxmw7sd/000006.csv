@@ -1,0 +1,8 @@
+"0","p <- ggplot(data = gapminder,"
+"0","            mapping = aes(x = gdpPercap,"
+"0","                          y = lifeExp,"
+"0","                          color = continent,"
+"0","                          fill = continent))"
+"0","p + geom_point() +"
+"0","    geom_smooth(method = ""loess"") +"
+"0","    scale_x_log10()"

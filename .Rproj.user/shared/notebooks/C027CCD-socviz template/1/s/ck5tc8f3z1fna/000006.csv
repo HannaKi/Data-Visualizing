@@ -1,0 +1,8 @@
+"0","p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y=lifeExp))"
+"0","p+  geom_point(alpha = 0.3) +"
+"0","    geom_smooth(method = ""gam"") +"
+"0","    scale_x_log10(labels = scales::dollar) +"
+"0","    labs(x = ""GDP Per Capita"", y = ""Life Expectancy in Years"","
+"0","         title = ""Economic Growth and Life Expectancy"","
+"0","         subtitle = ""Data points are country-years"","
+"0","         caption = ""Source: Gapminder."")"

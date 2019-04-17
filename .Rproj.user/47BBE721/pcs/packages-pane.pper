@@ -1,0 +1,7 @@
+{
+    "installOptions" : {
+        "installDependencies" : true,
+        "installFromRepository" : true,
+        "libraryPath" : "C:/Users/hanna/OneDrive/Tiedostot/R/win-library/3.5"
+    }
+}
