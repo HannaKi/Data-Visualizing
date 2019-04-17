@@ -345,7 +345,7 @@ p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = "gray", aes(gro
 ggsave(here("output", "figures", "BKT_per_hlo_mantereittain.jpg"), plot = p)
 ```
 
-
+testaa
 
 ## Graph Tables, Make Labels, Add Notes
 

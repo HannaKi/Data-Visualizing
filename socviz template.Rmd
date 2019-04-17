@@ -339,6 +339,13 @@ p <- ggplot(data = gapminder, mapping = aes(x = year, y = gdpPercap))
 p + geom_line(aes(group = country)) + facet_wrap(~ continent)
 ```
 
+```{r}
+p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = "gray", aes(group = country)) + geom_smooth(method = loess, se = F) + scale_y_log10(labels=scales::dollar) + facet_wrap(~ continent, ncol = 5) + labs(x= "vuosi", y = "BKT/hlö", title="BKT henkiöä kohden viidellä mantereella")
+
+ggsave(here("output", "figures", "BKT_per_hlo_mantereittain.jpg"), plot = p)
+```
+
+testaa
 
 ## Graph Tables, Make Labels, Add Notes
 
