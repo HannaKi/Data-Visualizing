@@ -1,0 +1,2 @@
+"0","p <- ggplot(gss_sm, aes(bigregion))"
+"0","p + geom_bar(color= ""blue"", fill= ""orange"", mapping = aes(y=..prop.., group=1))"

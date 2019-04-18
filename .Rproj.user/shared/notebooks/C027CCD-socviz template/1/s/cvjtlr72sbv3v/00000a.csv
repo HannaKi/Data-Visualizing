@@ -1,4 +1,3 @@
-"0","p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = ""gray"", aes(group = country)) + geom_smooth(method = loess, se = F) + scale_y_log10(labels=scales::dollar) + facet_wrap(~ continent, ncol = 5) + labs(x= ""vuosi"", y = ""BKT/hlö"", title=""BKT henkiöä kohden viidellä mantereella"")"
 "0","ggsave(here(""output"", ""figures"", ""BKT_per_hlo_mantereittain.jpg""), plot = p)"
-"2","Saving 7 x 7 in image
+"2","Saving 8 x 5 in image
 "

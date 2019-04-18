@@ -1,0 +1,2 @@
+"0","p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = ""gray"", aes(group = country)) + geom_smooth(method = loess, se = F) + scale_y_log10(labels=scales::dollar) + facet_wrap(~ continent, ncol = 5) + labs(x= ""vuosi"", y = ""BKT/hlö"", title=""BKT henkilöä kohden viidellä mantereella"") "
+"0","p"

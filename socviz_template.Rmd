@@ -331,7 +331,7 @@ p + geom_line(aes(group=country))
 
 ### Ruudukot tiedon esittämisen apuna
 
-Fasetilla voidaan jakaa kuva useampaan 
+Fasetilla voidaan jakaa kuva useampaan ruutuun luokittelevan muuttujan perusteella. Kuvat listautuvat peräkkäin, tai voit määrittää, montako kuvaa haluat rinnakkain.
 
 ```{r}
 p <- ggplot(data = gapminder, mapping = aes(x = year, y = gdpPercap))
@@ -340,12 +340,65 @@ p + geom_line(aes(group = country)) + facet_wrap(~ continent)
 ```
 
 ```{r}
-p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = "gray", aes(group = country)) + geom_smooth(method = loess, se = F) + scale_y_log10(labels=scales::dollar) + facet_wrap(~ continent, ncol = 5) + labs(x= "vuosi", y = "BKT/hlö", title="BKT henkiöä kohden viidellä mantereella")
+p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = "gray", aes(group = country)) + geom_smooth(method = loess, se = F) + scale_y_log10(labels=scales::dollar) + facet_wrap(~ continent, ncol = 5) + labs(x= "vuosi", y = "BKT/hlö", title="BKT henkilöä kohden viidellä mantereella") 
+
+# + theme(axis.title.x = element_text(angle = 90, vjust = 0.25))
+# Miten muokataan fasettien akseleita?
+p
 
 ggsave(here("output", "figures", "BKT_per_hlo_mantereittain.jpg"), plot = p)
 ```
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp)) 
+p + geom_point(alpha = 0.3) +
+    geom_smooth(color = "orange", se = FALSE, method = "lm") +
+    scale_x_log10()+facet_wrap(~continent)
+```
+### Siirrytään dataan, jossa luokittelevia muuttujia
 
-testaa
+gss_sm on yhteiskuntatieteellisen tutkimuksen dataa. Muuttujista moni on *luokitteleva* tai *järjestysasteikollinen*
+
+-  because we are *cross-classifying* our results, the formula is two-sided: *facet_grid(sex ~ race)*.
+
+```{r}
+p <- ggplot(data = gss_sm, aes(age, childs))
+p + geom_point(alpha = 0.2)+geom_smooth()+facet_grid(sex~race)
+```
+Ruudukkoon voi ottaa useamman tekijän, mutta tulkitseminen menee hankalaksi eikä datakaan välttämättä enää riitä.
+
+```{r}
+p <- ggplot(data = gss_sm, aes(age, childs))
+p + geom_point(alpha = 0.2)+geom_smooth()+facet_grid(sex~race~obama)
+```
+
+### Histogrammi
+
+Jokaiseen geom_-funktioon liittyy stat_funktio, joka tulee kutsustuksi automaattisesti, ellei toisin määritetä.
+
+Histogrammille stat on count, eli määrä, jonka funktio laskee datasta kuvaajalle "lennosta".
+
+```{r}
+p <- ggplot(gss_sm, aes(x=bigregion))
+p + geom_bar(mapping = aes(fill=bigregion))
+```
+Jos kuvaajaan halutaan muutujan arvojen osuudet, tulee käyttää toista geom_hist:in stat-funktiota, ..prop..:ia. Huomaa erikoinen merkintä!
+
+Lisäksi funktiokutsulle on määriettävä, että sen ei tule jakaa dataa osiin x-akselille, vaan x-akselin arvot summautuvat yhteen. 
+
+```{r}
+p <- ggplot(gss_sm, aes(x=bigregion))
+p + geom_bar(mapping = aes(y = ..prop.., fill=bigregion)) + labs(title="Tässä muuttuja ei summaudu yhteen", subtitle = "Vaan jokainen arvo summautuu yhteen")
+```
+
+Muuttuja saadaan summautumaan yhteen dummy-muuttujalla.
+
+```{r}
+p <- ggplot(gss_sm, aes(bigregion))
+p + geom_bar(color= "blue", fill= "orange", mapping = aes(y=..prop.., group=1))
+```
+Huomaa, fill=bigregion ei enää, toimi, koska muuttujassa ei ole enää useampaa luokkaa, vaan yksi dummy!
 
 ## Graph Tables, Make Labels, Add Notes
 

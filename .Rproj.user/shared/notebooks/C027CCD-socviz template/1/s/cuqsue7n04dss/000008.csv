@@ -1,0 +1,2 @@
+"0","p <- ggplot(gss_sm, aes(x=bigregion))"
+"0","p + geom_bar(mapping = aes(fill=bigregion))"
