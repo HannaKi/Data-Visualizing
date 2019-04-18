@@ -5,5 +5,5 @@
 "0","  geom_point() +"
 "0","    geom_smooth(method = ""loess"") +"
 "0","    scale_x_log10() + "
-"0","    labs(title = ""aes-funktioon annettu värimäärittely VÄÄRIN"")"
+"0","    labs(title = ""aes-funktioon annettu värimäärittely VÄÄRIN."", subtitle = ""ggplotille annetaan vain datan muutujia, nyt se on luonut kokonaan uuden muuttujan, 'purple'"")"
 "0","p"
