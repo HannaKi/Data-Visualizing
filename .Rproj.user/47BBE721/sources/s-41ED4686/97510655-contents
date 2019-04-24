@@ -505,19 +505,90 @@ p <- ggplot(data = oecd_sum,
 p + geom_col() + guides(fill = FALSE) +
   labs(x = NULL, y = "Difference in Years",
        title = "The US Life Expectancy Gap",
-       subtitle = "Difference between US and OECD
-                   average life expectancies, 1960-2015",
+       subtitle = "Difference between US and OECD average life expectancies, 1960-2015",
        caption = "Data: OECD. After a chart by Christopher Ingraham,
                   Washington Post, December 27th 2017.")
 ```
 
-
-
 ## Graph Tables, Make Labels, Add Notes
 
-```{r}
+Muokataan dataa itse, fokuksessa dplyr ja %>% 
 
+Tehdään gss_sm:stä uusi data
+
+```{r}
+rel_by_region <- gss_sm %>%
+    group_by(bigregion, religion) %>%
+    summarize(N = n()) %>%
+    mutate(freq = N / sum(N),
+           pct = round((freq*100), 0))
+
+head(gss_sm)
+head(rel_by_region)
 ```
+Huomaa, että group_by ottaa kaksi saraketta muuttujaksi! Sarake pct perustuu freq:iin.
+
+Jokaisessa bigregion-ryhmässä uskontojen osuudet summautuvat noin sataan (huom. pyöristys aikaisemmin.)
+
+```{r}
+rel_by_region %>% group_by(bigregion) %>% summarize(total = sum(pct))
+```
+
+```{r}
+p <- ggplot(rel_by_region, aes(bigregion, pct, fill = religion))
+p + geom_col(position = "dodge")
+```
+```{r}
+p <- ggplot(rel_by_region, aes(bigregion, pct, fill = religion))
+p + geom_col(position = "dodge2") + 
+  labs(x = "Alue", y = "Osuus", fill= "Uskonto") + theme(legend.position = "top")
+```
+
+Kvaaja on sinänsä hyvä, mutta siinä on liikaa informaatiota. *As a rule, dodged charts can be more cleanly expressed as faceted plots.*
+
+Huomaa, että nyt x-muuttuja vaihtuu
+
+```{r}
+p <- ggplot(rel_by_region, aes(religion, pct, fill = religion))
+p + geom_col(position = "dodge2") + 
+  labs(x = "Alue", y = "Osuus", fill= "Uskonto") + facet_grid(~bigregion) + coord_flip()+ guides(fill = F)
+```
+
+### Puuttuvat arvot datassa
+
+```{r}
+p <- ggplot(organdata, mapping = aes(year, donors))
+p + geom_line() + facet_wrap(~country)
+```
+Boxplot kuvaa hajontaa
+
+```{r}
+p <- ggplot(organdata, mapping = aes(x=country, y=donors))
+p+geom_boxplot() + coord_flip()
+```
+
+Käytetään **reorder-funktiota** kuvaajan järjestämiseen. Reorder ottaa kaksi arkumenttia, järjestettävän asian  ja muuttujan, jolla data järjestetään. Oletusarvoisesti järjestämiseen käytetään muuttujan keskiarvoa. Myös muita funktioita voi käyttää, esim. median tai sd. 
+
+Huomaa, että reorderille pitää erikseen sanoa NA:iden poistamisesta!
+
+**We are reordering the variable we are mapping to the x aesthetic, so we use reorder() at that point in our code**
+
+```{r}
+p <- ggplot(organdata, mapping = aes(x= reorder(country, donors, na.rm = T), y=donors))
+
+p+geom_boxplot() + coord_flip() + labs(x=NULL)
+```
+
+
+```{r}
+p <- ggplot(data = organdata,
+            mapping = aes(x = reorder(country, donors, na.rm=TRUE),
+                          y = donors, fill = world))
+p + geom_boxplot() + labs(x=NULL) +
+    coord_flip() + theme(legend.position = "top")
+```
+
+Jos havaintoja on vähän, boxplotin voi korvata pistekuvaajalla (kirjoittajan mukaan)
 
 ## Work with Models
 

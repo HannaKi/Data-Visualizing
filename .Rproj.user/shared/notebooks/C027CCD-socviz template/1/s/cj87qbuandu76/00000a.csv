@@ -1,0 +1,2 @@
+"0","p <- ggplot(rel_by_region, aes(bigregion, pct, fill = religion))"
+"0","p + geom_col(position = ""dodge"")"

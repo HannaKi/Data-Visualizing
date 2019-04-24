@@ -1,0 +1,5 @@
+"0","p <- ggplot(data = organdata,"
+"0","            mapping = aes(x = reorder(country, donors, na.rm=TRUE),"
+"0","                          y = donors, fill = world))"
+"0","p + geom_boxplot() + labs(x=NULL) +"
+"0","    coord_flip() + theme(legend.position = ""top"")"

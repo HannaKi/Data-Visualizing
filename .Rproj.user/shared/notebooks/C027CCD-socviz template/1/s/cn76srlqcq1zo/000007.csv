@@ -1,0 +1,2 @@
+"0","p <- ggplot(organdata, mapping = aes(x=country, y=donors))"
+"0","p+geom_boxplot() + coord_flip()"

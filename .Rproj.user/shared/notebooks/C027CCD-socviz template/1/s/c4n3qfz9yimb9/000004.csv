@@ -3,7 +3,6 @@
 "0","p + geom_col() + guides(fill = FALSE) +"
 "0","  labs(x = NULL, y = ""Difference in Years"","
 "0","       title = ""The US Life Expectancy Gap"","
-"0","       subtitle = ""Difference between US and OECD"
-"0","                   average life expectancies, 1960-2015"","
+"0","       subtitle = ""Difference between US and OECD average life expectancies, 1960-2015"","
 "0","       caption = ""Data: OECD. After a chart by Christopher Ingraham,"
 "0","                  Washington Post, December 27th 2017."")"

@@ -1,0 +1,3 @@
+"0","p <- ggplot(rel_by_region, aes(religion, pct, fill = religion))"
+"0","p + geom_col(position = ""dodge2"") + "
+"0","  labs(x = ""Alue"", y = ""Osuus"", fill= ""Uskonto"") + facet_grid(~bigregion) + coord_flip()+ guides(fill = F)"

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1556125757125.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F0C006C6",
+    "lastKnownWriteTime" : 2,
+    "last_content_update" : 1556125757125,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "B72DF118",
+        "caption" : "testi",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=testi&cache_key=B72DF118",
+        "displayedObservations" : 24,
+        "environment" : "",
+        "object" : "testi",
+        "preview" : 0,
+        "totalObservations" : 24,
+        "variables" : 5
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

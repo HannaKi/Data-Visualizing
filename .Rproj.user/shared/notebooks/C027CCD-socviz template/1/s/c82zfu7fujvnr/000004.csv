@@ -1,0 +1,2 @@
+"0","p <- ggplot(organdata, mapping = aes(year, donors))"
+"0","p + geom_line() + facet_wrap(~country)"
