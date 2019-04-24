@@ -1,0 +1,2 @@
+"0","p <- ggplot(midwest, mapping = aes(x=area,  color = state))"
+"0","p + geom_line(stat = ""density"")"

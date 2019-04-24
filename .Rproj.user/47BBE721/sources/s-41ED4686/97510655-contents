@@ -320,6 +320,7 @@ p + geom_smooth(method = "loess") +
 
 
 ## Show the Right Numbers
+
 Allaolevassa kuvaajassa, jossa piirretään kahta jatkuvaa muuttujaa, muuttujissa itsessään ei ole ryhmittelyä (kuten manner tai maa). Tämän vuoksi ggplotille kerrotaan, että jokainen vuosi kuuluu jollekkin maalle, eli aes(group=country). Näin jokaiselle maalle piirtyy oma viivansa.
 
 ```{r}
@@ -373,17 +374,19 @@ p <- ggplot(data = gss_sm, aes(age, childs))
 p + geom_point(alpha = 0.2)+geom_smooth()+facet_grid(sex~race~obama)
 ```
 
-### Histogrammi
+### Pylväsdiagrammi
+
+Pylväskuvaajalla kuvataan luokittelevia muuttujia.
 
 Jokaiseen geom_-funktioon liittyy stat_funktio, joka tulee kutsustuksi automaattisesti, ellei toisin määritetä.
 
-Histogrammille stat on count, eli määrä, jonka funktio laskee datasta kuvaajalle "lennosta".
+Pylväsdiagrammille stat on count, eli määrä, jonka funktio laskee datasta kuvaajalle "lennosta".
 
 ```{r}
 p <- ggplot(gss_sm, aes(x=bigregion))
 p + geom_bar(mapping = aes(fill=bigregion))
 ```
-Jos kuvaajaan halutaan muutujan arvojen osuudet, tulee käyttää toista geom_hist:in stat-funktiota, ..prop..:ia. Huomaa erikoinen merkintä!
+Jos kuvaajaan halutaan muutujan arvojen osuudet, tulee käyttää toista geom_bar:in stat-funktiota, ..prop..:ia. Huomaa erikoinen merkintä!
 
 Lisäksi funktiokutsulle on määriettävä, että sen ei tule jakaa dataa osiin x-akselille, vaan x-akselin arvot summautuvat yhteen. 
 
@@ -392,13 +395,123 @@ p <- ggplot(gss_sm, aes(x=bigregion))
 p + geom_bar(mapping = aes(y = ..prop.., fill=bigregion)) + labs(title="Tässä muuttuja ei summaudu yhteen", subtitle = "Vaan jokainen arvo summautuu yhteen")
 ```
 
-Muuttuja saadaan summautumaan yhteen dummy-muuttujalla.
+Muuttuja saadaan summautumaan yhteen dummy-muuttujalla, group = 1.
 
 ```{r}
 p <- ggplot(gss_sm, aes(bigregion))
 p + geom_bar(color= "blue", fill= "orange", mapping = aes(y=..prop.., group=1))
 ```
 Huomaa, fill=bigregion ei enää, toimi, koska muuttujassa ei ole enää useampaa luokkaa, vaan yksi dummy!
+
+### Frequency plots the slightly awkward way
+
+fill-parametrin paras käyttökohde on kolmannen muuttujan tuominen kuvaajaan värittämällä kaavion pylväät sen mukaan
+
+```{r}
+p <- ggplot(gss_sm, mapping = aes(bigregion, fill = religion))
+p + geom_bar()
+```
+
+Pinottu pylväs on pylväsdiagrammin oletus. Tätä voidaan muuttaa "position"-argumentilla
+
+```{r}
+p <- ggplot(gss_sm, mapping = aes(bigregion, fill = religion))
+p + geom_bar(position = "fill")
+```
+Vertailu ryhmien sisällä on näin helppoa, mutta ryhmien kesken vaikeaa. "dodge" asettaa pylväät rinnakkain, mutta sellaisenaan se antaa datan lukumäärät
+
+```{r}
+p <- ggplot(gss_sm, mapping = aes(bigregion, fill = religion))
+p + geom_bar(position = "dodge")
+```
+
+Kun y-akselille asetetaan osuudet "y=..prop..", tulee funktiolle myös kertoa, mille ryhmille osuuksia (summautuu 100%:iin) lasketaan. Koska osuudet piirretään eri uskonnoille, uskonto on ryhmittelevä tekijä.
+
+```{r}
+p <- ggplot(gss_sm, mapping = aes(bigregion, fill = religion))
+p + geom_bar(position = "dodge", mapping = aes(y=..prop..,group=religion))
+```
+
+Kuvaajassa alkaa olla jo liikaa tietoa. Sen voi palastella ruudukon (facet) avulla helpommin tarkasteltaviksi kuvaajiksi.
+
+```{r}
+p <- ggplot(gss_sm, mapping = aes(religion))
+p + geom_bar(position = "dodge", mapping = aes(y=..prop.., group = bigregion)) + facet_wrap(~bigregion)
+```
+
+### Histograms and density plots
+
+Histogrammi kuvaa jatkuvia muuttujia. (Pylväskuvaajalla kuvataan luokittelevia muuttuja.) Histogrammiin määritetään "bin", eli jakso, tai "säilö", jonka sisään osuvia havaintoja rtarkastellaan. Bin:in lukumäärä (eli koko) vaikuttaa datasta tehtyyn kuvaajiin.
+
+```{r}
+p <- ggplot(midwest, mapping = aes(x=area))
+p + geom_histogram()
+```
+
+```{r}
+p <- ggplot(midwest, mapping = aes(x=area))
+p + geom_histogram(bins = 10)
+```
+
+Fasettien lisäksi histogrammeja voi esittää useamman kerralla piirtämällä niitä päällekkäin.
+
+```{r}
+oh_wi <- c("OH", "WI")
+
+p <- ggplot(data = subset(midwest, subset = state %in% oh_wi),
+            mapping = aes(x = percollege, fill = state))
+p + geom_histogram(alpha = 0.4, bins = 20)
+```
+
+### Tiheysfunktio
+
+Toinen mielekäs tapa kuvata jatkuvia muuttujia on tiheysfunktio. Wikipedia: "Tiheysfunktioiden arvot eivät itsessään ole todennäköisyyksiä, mutta tiheysfunktion avulla voidaan laskea todennäköisyydet käyttämällä määrättyä integraalia. Tiheysfunktio määrittelee satunnaismuuttujan täysin, ja sen avulla voidaan määrittää satunnaismuuttujan kaikki ominaisuudet." **Tiheysfunktion pinta-ala on 1**
+
+```{r}
+p <- ggplot(midwest, mapping = aes(x=area))
+p + geom_density()
+```
+
+Väreillä saa kuvaajaan lisäinformaatioita. Huom: **fill täyttää, color määrää reunat**
+
+```{r}
+p <- ggplot(midwest, mapping = aes(area, fill=state, color = state))
+p + geom_density(alpha = 0.3)
+```
+
+Vastaavanlaisen kuvaajan saa myös geom_line:lla.
+
+```{r}
+p <- ggplot(midwest, mapping = aes(x=area,  color = state))
+p + geom_line(stat = "density")
+```
+
+```{r}
+p <- ggplot(data = subset(midwest, subset = state %in% oh_wi),
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density(alpha = 0.3, mapping = (aes(y = ..scaled..)))
+```
+
+Usein data on jo valmiiksi koostetaulukko. Sillon kannattaa käyttää geom_col:ia, joka vastaa geom_bar:ia, mutta jossa oletuksen a on stat = "identity", eli joka *ei laske datalla*
+
+```{r}
+glimpse(oecd_sum)
+```
+
+
+```{r}
+p <- ggplot(data = oecd_sum,
+            mapping = aes(x = year, y = diff, fill = hi_lo))
+p + geom_col() + guides(fill = FALSE) +
+  labs(x = NULL, y = "Difference in Years",
+       title = "The US Life Expectancy Gap",
+       subtitle = "Difference between US and OECD
+                   average life expectancies, 1960-2015",
+       caption = "Data: OECD. After a chart by Christopher Ingraham,
+                  Washington Post, December 27th 2017.")
+```
+
+
 
 ## Graph Tables, Make Labels, Add Notes
 

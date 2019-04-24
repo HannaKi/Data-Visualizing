@@ -1,0 +1,2 @@
+"0","p <- ggplot(midwest, mapping = aes(area, fill=state, color = state))"
+"0","p + geom_density(alpha = 0.3)"

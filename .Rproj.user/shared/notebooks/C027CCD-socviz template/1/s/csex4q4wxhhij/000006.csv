@@ -1,0 +1,2 @@
+"0","p <- ggplot(midwest, mapping = aes(x=area))"
+"0","p + geom_histogram()"
