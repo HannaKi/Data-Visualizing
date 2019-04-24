@@ -1,0 +1,2 @@
+"0","p <- ggplot(by_country, mapping = aes(x= donors_fn1, y=reorder(country, donors_fn1), color = consent_law))"
+"0","p + geom_point() + labs(y = NULL, x= ""Elinluovuttajien keskiarvo"", color = ""Laki"") + theme(legend.position = ""top"")"

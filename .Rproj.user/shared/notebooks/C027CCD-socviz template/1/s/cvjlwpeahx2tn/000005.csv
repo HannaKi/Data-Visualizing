@@ -1,0 +1,7 @@
+"0","p <- ggplot(data = by_country,"
+"0","            mapping = aes(x = donors_fn1,"
+"0","                          y = reorder(country, donors_fn1)))"
+"0","p + geom_point(size=3) +"
+"0","    facet_wrap(~ consent_law, scales = ""free_y"", ncol = 1) +"
+"0","    labs(x= ""Donor Procurement Rate"","
+"0","         y= """") "

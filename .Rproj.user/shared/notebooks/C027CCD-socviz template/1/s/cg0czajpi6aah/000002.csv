@@ -1,0 +1,1 @@
+"0","by_country <- organdata %>% group_by(consent_law, country) %>% summarize_if(is.numeric, list(mean, sd), na.rm=T) %>% ungroup"

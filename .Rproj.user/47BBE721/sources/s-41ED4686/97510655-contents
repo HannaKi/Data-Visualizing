@@ -590,6 +590,55 @@ p + geom_boxplot() + labs(x=NULL) +
 
 Jos havaintoja on vähän, boxplotin voi korvata pistekuvaajalla (kirjoittajan mukaan)
 
+```{r}
+p <- ggplot(data = organdata,
+            mapping = aes(x = reorder(country, donors, na.rm=TRUE),
+                          y = donors, color = world))
+p + geom_jitter(position = position_jitter(width=0.15)) + labs(x=NULL) +
+    coord_flip() + theme(legend.position = "top")
+```
+
+### Cleveland dotplot
+
+Kirjoittajan mukaan parempi kuin pylväsdiagrammi tai taulukko(!) kun halutaan esittää summatason tuloksia luokittelumuuttujasta. esim. keskiarvo, keskihajonta.
+
+```{r}
+by_country <- organdata %>% group_by(consent_law, country) %>%
+    summarize(donors_mean= mean(donors, na.rm = TRUE),
+              donors_sd = sd(donors, na.rm = TRUE),
+              gdp_mean = mean(gdp, na.rm = TRUE),
+              health_mean = mean(health, na.rm = TRUE),
+              roads_mean = mean(roads, na.rm = TRUE),
+              cerebvas_mean = mean(cerebvas, na.rm = TRUE))
+
+head(by_country)
+```
+
+Datan luovassa koodissa on toistoa. sen voi poistaa *apply*-tyylisellä rarkaisulla: 
+
+```{r}
+by_country <- organdata %>% group_by(consent_law, country) %>% summarize_if(is.numeric, list(mean, sd), na.rm=T) %>% ungroup
+```
+"In the last step in the pipeline we ungroup() the data, so that the result is a plain tibble. Sometimes graphing functions can get confused by grouped tibbles where we don’t explicitly use the groups in the plot."
+
+```{r}
+p <- ggplot(by_country, mapping = aes(x= donors_fn1, y=reorder(country, donors_fn1), color = consent_law))
+p + geom_point() + labs(y = NULL, x= "Elinluovuttajien keskiarvo", color = "Laki") + theme(legend.position = "top")
+```
+
+```{r}
+p <- ggplot(data = by_country,
+            mapping = aes(x = donors_fn1,
+                          y = reorder(country, donors_fn1)))
+
+p + geom_point(size=3) +
+    facet_wrap(~ consent_law, scales = "free_y", ncol = 1) +
+    labs(x= "Donor Procurement Rate",
+         y= "") 
+```
+
+**Cleveland dotplots are generally preferred to bar or column charts. When making them, put the categories on the y-axis and order them in the way that is most relevant to the numerical summary you are providing.** This sort of plot is also an excellent way to summarize model results or any data with with error ranges.
+
 ## Work with Models
 
 ```{r}
