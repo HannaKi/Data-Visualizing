@@ -1,0 +1,2 @@
+"0","p <- ggplot(gapminder, aes(x = log(gdpPercap), y = lifeExp))"
+"0","p + geom_point(alpha=0.1) + geom_smooth(color = ""tomato"", fill = "" tomato"", method = MASS::rlm) + geom_smooth(color = ""blue"", fill=""blue"", method = ""lm"")"

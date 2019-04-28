@@ -1,0 +1,8 @@
+"0","by_country <- organdata %>% group_by(consent_law, country) %>%"
+"0","    summarize(donors_mean= mean(donors, na.rm = TRUE),"
+"0","              donors_sd = sd(donors, na.rm = TRUE),"
+"0","              gdp_mean = mean(gdp, na.rm = TRUE),"
+"0","              health_mean = mean(health, na.rm = TRUE),"
+"0","              roads_mean = mean(roads, na.rm = TRUE),"
+"0","              cerebvas_mean = mean(cerebvas, na.rm = TRUE))"
+"0","head(by_country)"

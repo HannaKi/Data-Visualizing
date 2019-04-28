@@ -1,0 +1,4 @@
+"0","p <- ggplot(data = organdata, mapping = aes(x = roads, y = donors))"
+"0","p + geom_point() + annotate(geom = ""text"", x = 91, y = 33,"
+"0","                            label = ""A surprisingly high \n recovery rate."","
+"0","                            hjust = 0)"

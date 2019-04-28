@@ -1,0 +1,2 @@
+"0","p <- ggplot(organdata, aes(roads, donors))"
+"0","p + geom_point() + annotate(geom = ""rect"", xmin=125, xmax=155, ymin=30, ymax=35, fill=""orange"", alpha = 0.3) + annotate(geom= ""text"", x = 157, y= 33, label= ""Yllättävän korkea \n selviytymisaste"", hjust = 0)"
