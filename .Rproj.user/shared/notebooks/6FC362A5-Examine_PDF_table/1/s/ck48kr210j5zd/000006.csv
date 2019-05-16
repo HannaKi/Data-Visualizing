@@ -1,0 +1,8 @@
+"0","flipPlots::SankeyDiagram(my.data[, -4],
+              link.color = ""Source"",
+              label.show.varname = FALSE,
+              weights = my.data.2$freq)
+"
+"2","Error in flipPlots::SankeyDiagram(my.data[, -4], link.color = ""Source"",  : 
+  object 'my.data.2' not found
+"

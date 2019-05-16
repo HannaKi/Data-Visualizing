@@ -1,2 +1,0 @@
-"0","p <- ggplot(by_country, aes(roads_fn1, donors_fn1))"
-"0","p + geom_point() + geom_text(aes(label = country), hjust=0)"

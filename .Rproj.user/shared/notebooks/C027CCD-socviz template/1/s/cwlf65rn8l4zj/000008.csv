@@ -1,7 +1,0 @@
-"0","p <- ggplot(data = by_country,"
-"0","            mapping = aes(x = gdp_fn1, y = health_fn1))"
-"0","p + geom_point() +"
-"0","    geom_text_repel(data = subset(by_country,"
-"0","                                  gdp_fn1 > 25000 | health_fn1 < 1500 |"
-"0","                                  country %in% ""Belgium""),"
-"0","                    mapping = aes(label = country))"

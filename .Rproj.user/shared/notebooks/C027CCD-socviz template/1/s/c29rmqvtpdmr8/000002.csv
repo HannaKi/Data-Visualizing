@@ -1,0 +1,4 @@
+"0","p <- ggplot(by_country, mapping=aes(x = reorder(country, donors_fn1), y=donors_fn1))"
+"2","Error in ggplot(by_country, mapping = aes(x = reorder(country, donors_fn1),  : 
+  object 'by_country' not found
+"

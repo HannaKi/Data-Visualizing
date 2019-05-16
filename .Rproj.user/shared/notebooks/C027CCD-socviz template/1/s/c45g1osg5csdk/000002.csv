@@ -1,0 +1,4 @@
+"0","p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = ""gray"", aes(group = country)) + geom_smooth(method = loess, se = F) + scale_y_log10(labels=scales::dollar) + facet_wrap(~ continent, ncol = 5) + labs(x= ""vuosi"", y = ""BKT/hlö"", title=""BKT henkilöa kohden viidella mantereella"") "
+"0","# + theme(axis.title.x = element_text(angle = 90, vjust = 0.25))"
+"0","# Miten muokataan fasettien akseleita?"
+"0","p"

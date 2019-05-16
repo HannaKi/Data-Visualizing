@@ -1,2 +1,0 @@
-"0","p <- ggplot(gss_sm, aes(x=bigregion))"
-"0","p + geom_bar(mapping = aes(y = ..prop.., fill=bigregion)) + labs(title=""Tässä muuttuja ei summaudu yhteen"", subtitle = ""Vaan jokainen arvo summautuu yhteen"")"

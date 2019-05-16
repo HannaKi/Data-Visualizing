@@ -1,5 +1,0 @@
-"0","organdata$ind <- organdata$ccode %in% c(""Ita"", ""Spa"") "
-"0","p <- ggplot(data = organdata,"
-"0","            mapping = aes(x = roads,"
-"0","                          y = donors, color = ind))"
-"0","p + geom_point() + geom_text_repel(data = subset(organdata, ind), aes(label = ccode)) + guides(label = F, color = F)"

@@ -1,2 +1,0 @@
-"0","p <- ggplot(by_country, aes(gdp_fn1, health_fn1))"
-"0","p + geom_point() + geom_text_repel(data = subset(by_country, gdp_fn1>25000), mapping = aes(label = country))"

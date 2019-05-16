@@ -1,0 +1,4 @@
+"0","incomeSta$thousand_euro <- ifelse(incomeSta$class == ""in"", incomeSta$thousand_euro*(1), incomeSta$thousand_euro*(-1)))
+"
+"2","Error: unexpected ')' in ""incomeSta$thousand_euro <- ifelse(incomeSta$class == ""in"", incomeSta$thousand_euro*(1), incomeSta$thousand_euro*(-1)))""
+"

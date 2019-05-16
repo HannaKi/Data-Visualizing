@@ -40,9 +40,11 @@ my_packages <- c("tidyverse", "broom", "coefplot", "cowplot",
                  "gapminder", "GGally", "ggrepel", "ggridges", "gridExtra",
                  "here", "interplot", "margins", "maps", "mapproj",
                  "mapdata", "MASS", "quantreg", "rlang", "scales",
-                 "survey", "srvyr", "viridis", "viridisLite", "devtools")
+                 "survey", "srvyr", "viridis", "viridisLite", "devtools", "knitr", "socviz")
 
-install.packages(my_packages, repos = "http://cran.rstudio.com")
+lisapaketit <- c("tree")
+
+install.packages(my_packages, lisapaketit, repos = "http://cran.rstudio.com")
 
 ```
 
@@ -70,7 +72,7 @@ library(tidyverse)
 
 Notice that here, the braces at the start of the code chunk have some additional options set in them. There is the language, `r`, as before. This is required. Then there is the word `setup`, which is a label for your code chunk. Labels are useful to briefly say what the chunk does. Label names must be unique (no two chunks in the same document can have the same label) and cannot contain spaces. Then, after the comma, an option is set: `include=FALSE`. This tells R to run this code but not to include the output in the final document. 
 ```{r}
-# eli edellisen kappaleen yläpuolella on
+# eli edellisen kappaleen ylapuolella on
 # koodia, jota ei tulosteta html-tiedostoon
 ```
 
@@ -101,7 +103,7 @@ Muistiinpanoja:
 - "While a script file can keep comments and code together, it loses *the connection between code and its output*, such as the figure we want to produce. But there is a better alternative: we can write our notes using RMarkdown."
 
 ```{r}
-# Ctrl+Alt+I Windowsilla antaa tällaisen koodipalan. (Entä Linux?)
+# Ctrl+Alt+I Windowsilla antaa tallaisen koodipalan. (Enta Linux?)
 ```
 
 
@@ -123,7 +125,7 @@ Katsotaan datan muuttujien nimet
 colnames(gapminder)
 ```
 
-Niistä saadaan elementit kuvaajan piirtämiseen
+Niista saadaan elementit kuvaajan piirtamiseen
 
 ```{r}
 p <- ggplot(data = gapminder,
@@ -137,7 +139,7 @@ p <- ggplot(data = gapminder,
                           labs(x = "log GDP", y = "Life expectancy",
                           title = "kuvaaja")
 
-# piirrä tulostamalla "p"
+# piirra tulostamalla "p"
 p
 ```
 
@@ -152,7 +154,7 @@ p <- ggplot(data = gapminder,
   geom_point() +
     geom_smooth(method = "loess") +
     scale_x_log10() + 
-    labs(title = "aes-funktioon annettu värimäärittely VÄÄRIN.", subtitle = "ggplotille annetaan vain datan muutujia, nyt se on luonut kokonaan uuden muuttujan, 'purple'")
+    labs(title = "aes-funktioon annettu varimaarittely VaaRIN.", subtitle = "ggplotille annetaan vain datan muutujia, nyt se on luonut kokonaan uuden muuttujan, 'purple'")
 
 p
 
@@ -167,10 +169,10 @@ p <- ggplot(data = gapminder,
 p + geom_point(color = "purple") +
     geom_smooth(method = "loess") +
     scale_x_log10() + 
-    labs(title = "Värin voi määrittää geom-funktiolle mutta se ei tuo tässä lisää tietoa")
+    labs(title = "Varin voi maarittaa geom-funktiolle mutta se ei tuo tassa lisaa tietoa")
 ```
 
-ggplot koostuu kerroksista, jossa jokainen kerroksen funktio voi käyttää omia parametrejaan:
+ggplot koostuu kerroksista, jossa jokainen kerroksen funktio voi kayttaa omia parametrejaan:
 
 ```{r}
 p <- ggplot(data = gapminder,
@@ -197,7 +199,7 @@ p+  geom_point(alpha = 0.3) +
          caption = "Source: Gapminder.")
 ```
 
-Huomaa kuvaajassa yllä hieno otsikointi ja lähdeviitteet, jotka on tehty labs-funktiolla. Akselien asteikon $-merkki tulee kuitenkin scale-funktion parametrina
+Huomaa kuvaajassa ylla hieno otsikointi ja lahdeviitteet, jotka on tehty labs-funktiolla. Akselien asteikon $-merkki tulee kuitenkin scale-funktion parametrina
 
 ```{r}
 p <- ggplot(data = gapminder,
@@ -209,9 +211,9 @@ p + geom_point() +
     geom_smooth(method = "loess") +
     scale_x_log10()
 ```
-- Kun ggplotille annetaan piirrettäväksi uusi muuttuja, muuttuja "periytyy" kaikille lisämäärittelyjä tekeville funktioille. Siksi kaikille conitnent-muuttujille tulee oma regressiokäyrä. 
+- Kun ggplotille annetaan piirrettavaksi uusi muuttuja, muuttuja "periytyy" kaikille lisamaarittelyja tekeville funktioille. Siksi kaikille conitnent-muuttujille tulee oma regressiokayra. 
 
-- huomaa fill, joka värittää täytettävissä olevat alat
+- huomaa fill, joka varittaa taytettavissa olevat alat
 
 ```{r}
 p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
@@ -220,9 +222,9 @@ p + geom_point(mapping = aes(color = continent)) +
     scale_x_log10()
 ```
 
-Jos geom_funktiolle määrittää erikseen, mitä muuttujia sen avulla haluaa piirtää, periytymistä voi rajoittaa.
+Jos geom_funktiolle maarittaa erikseen, mita muuttujia sen avulla haluaa piirtaa, periytymista voi rajoittaa.
 
-Myös jatkuva muuttuja voi määrätä värin
+Myös jatkuva muuttuja voi maarata varin
 
 ```{r}
 p <- ggplot(data = gapminder,
@@ -251,7 +253,7 @@ p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
 p + geom_point(mapping = aes(color = continent)) +
     geom_smooth(method = "loess") +
     scale_x_log10() + 
-    labs(title = "Alkuperäinen kuvaaja")
+    labs(title = "Alkuperainen kuvaaja")
 ```
 ```{r}
 p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
@@ -267,7 +269,7 @@ p + geom_smooth(method = "loess") +
     scale_x_log10() + 
     labs(title = "Elinaika suhteessa populaatioon")
 ```
-Tulkinta: Elinajanennuste on alhaisin Afrikassa. Elinajanennuste on keskimäärin hieman korkeampi maissa, joissa on suuri väestö.
+Tulkinta: Elinajanennuste on alhaisin Afrikassa. Elinajanennuste on keskimaarin hieman korkeampi maissa, joissa on suuri vaestö.
 
 Kokeiluja akseleilla
 
@@ -300,14 +302,14 @@ p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
 p + geom_smooth(method = "loess") +
     geom_point(mapping = aes(color = year)) +
     scale_x_log10() + 
-    labs(title="värimääreenä vuosi eikä manner")
+    labs(title="varimaareena vuosi eika manner")
 ```
 ```{r}
 p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
 p + geom_smooth(method = "loess") +
     geom_point(mapping = aes(color = factor(year))) +
     scale_x_log10() + 
-    labs(title="värimääreenä vuosi eikä manner HUOM! factor(year)!!!!")
+    labs(title="varimaareena vuosi eika manner HUOM! factor(year)!!!!")
 ```
 
 ```{r}
@@ -321,7 +323,7 @@ p + geom_smooth(method = "loess") +
 
 ## Show the Right Numbers
 
-Allaolevassa kuvaajassa, jossa piirretään kahta jatkuvaa muuttujaa, muuttujissa itsessään ei ole ryhmittelyä (kuten manner tai maa). Tämän vuoksi ggplotille kerrotaan, että jokainen vuosi kuuluu jollekkin maalle, eli aes(group=country). Näin jokaiselle maalle piirtyy oma viivansa.
+Allaolevassa kuvaajassa, jossa piirretaan kahta jatkuvaa muuttujaa, muuttujissa itsessaan ei ole ryhmittelya (kuten manner tai maa). Taman vuoksi ggplotille kerrotaan, etta jokainen vuosi kuuluu jollekkin maalle, eli aes(group=country). Nain jokaiselle maalle piirtyy oma viivansa.
 
 ```{r}
 p <- ggplot(data = gapminder,
@@ -330,9 +332,9 @@ p <- ggplot(data = gapminder,
 p + geom_line(aes(group=country)) 
 ```
 
-### Ruudukot tiedon esittämisen apuna
+### Ruudukot tiedon esittamisen apuna
 
-Fasetilla voidaan jakaa kuva useampaan ruutuun luokittelevan muuttujan perusteella. Kuvat listautuvat peräkkäin, tai voit määrittää, montako kuvaa haluat rinnakkain.
+Fasetilla voidaan jakaa kuva useampaan ruutuun luokittelevan muuttujan perusteella. Kuvat listautuvat perakkain, tai voit maarittaa, montako kuvaa haluat rinnakkain.
 
 ```{r}
 p <- ggplot(data = gapminder, mapping = aes(x = year, y = gdpPercap))
@@ -341,7 +343,7 @@ p + geom_line(aes(group = country)) + facet_wrap(~ continent)
 ```
 
 ```{r}
-p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = "gray", aes(group = country)) + geom_smooth(method = loess, se = F) + scale_y_log10(labels=scales::dollar) + facet_wrap(~ continent, ncol = 5) + labs(x= "vuosi", y = "BKT/hlö", title="BKT henkilöä kohden viidellä mantereella") 
+p <- ggplot(gapminder, aes(year, gdpPercap)) + geom_line(color = "gray", aes(group = country)) + geom_smooth(method = loess, se = F) + scale_y_log10(labels=scales::dollar) + facet_wrap(~ continent, ncol = 5) + labs(x= "vuosi", y = "BKT/hlö", title="BKT henkilöa kohden viidella mantereella") 
 
 # + theme(axis.title.x = element_text(angle = 90, vjust = 0.25))
 # Miten muokataan fasettien akseleita?
@@ -357,9 +359,9 @@ p + geom_point(alpha = 0.3) +
     geom_smooth(color = "orange", se = FALSE, method = "lm") +
     scale_x_log10()+facet_wrap(~continent)
 ```
-### Siirrytään dataan, jossa luokittelevia muuttujia
+### Siirrytaan dataan, jossa luokittelevia muuttujia
 
-gss_sm on yhteiskuntatieteellisen tutkimuksen dataa. Muuttujista moni on *luokitteleva* tai *järjestysasteikollinen*
+gss_sm on yhteiskuntatieteellisen tutkimuksen dataa. Muuttujista moni on *luokitteleva* tai *jarjestysasteikollinen*
 
 -  because we are *cross-classifying* our results, the formula is two-sided: *facet_grid(sex ~ race)*.
 
@@ -367,32 +369,32 @@ gss_sm on yhteiskuntatieteellisen tutkimuksen dataa. Muuttujista moni on *luokit
 p <- ggplot(data = gss_sm, aes(age, childs))
 p + geom_point(alpha = 0.2)+geom_smooth()+facet_grid(sex~race)
 ```
-Ruudukkoon voi ottaa useamman tekijän, mutta tulkitseminen menee hankalaksi eikä datakaan välttämättä enää riitä.
+Ruudukkoon voi ottaa useamman tekijan, mutta tulkitseminen menee hankalaksi eika datakaan valttamatta enaa riita.
 
 ```{r}
 p <- ggplot(data = gss_sm, aes(age, childs))
 p + geom_point(alpha = 0.2)+geom_smooth()+facet_grid(sex~race~obama)
 ```
 
-### Pylväsdiagrammi
+### Pylvasdiagrammi
 
-Pylväskuvaajalla kuvataan luokittelevia muuttujia.
+Pylvaskuvaajalla kuvataan luokittelevia muuttujia.
 
-Jokaiseen geom_-funktioon liittyy stat_funktio, joka tulee kutsustuksi automaattisesti, ellei toisin määritetä.
+Jokaiseen geom_-funktioon liittyy stat_funktio, joka tulee kutsustuksi automaattisesti, ellei toisin maariteta.
 
-Pylväsdiagrammille stat on count, eli määrä, jonka funktio laskee datasta kuvaajalle "lennosta".
+Pylvasdiagrammille stat on count, eli maara, jonka funktio laskee datasta kuvaajalle "lennosta".
 
 ```{r}
 p <- ggplot(gss_sm, aes(x=bigregion))
 p + geom_bar(mapping = aes(fill=bigregion))
 ```
-Jos kuvaajaan halutaan muutujan arvojen osuudet, tulee käyttää toista geom_bar:in stat-funktiota, ..prop..:ia. Huomaa erikoinen merkintä!
+Jos kuvaajaan halutaan muutujan arvojen osuudet, tulee kayttaa toista geom_bar:in stat-funktiota, ..prop..:ia. Huomaa erikoinen merkinta!
 
-Lisäksi funktiokutsulle on määriettävä, että sen ei tule jakaa dataa osiin x-akselille, vaan x-akselin arvot summautuvat yhteen. 
+Lisaksi funktiokutsulle on maariettava, etta sen ei tule jakaa dataa osiin x-akselille, vaan x-akselin arvot summautuvat yhteen. 
 
 ```{r}
 p <- ggplot(gss_sm, aes(x=bigregion))
-p + geom_bar(mapping = aes(y = ..prop.., fill=bigregion)) + labs(title="Tässä muuttuja ei summaudu yhteen", subtitle = "Vaan jokainen arvo summautuu yhteen")
+p + geom_bar(mapping = aes(y = ..prop.., fill=bigregion)) + labs(title="Tassa muuttuja ei summaudu yhteen", subtitle = "Vaan jokainen arvo summautuu yhteen")
 ```
 
 Muuttuja saadaan summautumaan yhteen dummy-muuttujalla, group = 1.
@@ -401,31 +403,31 @@ Muuttuja saadaan summautumaan yhteen dummy-muuttujalla, group = 1.
 p <- ggplot(gss_sm, aes(bigregion))
 p + geom_bar(color= "blue", fill= "orange", mapping = aes(y=..prop.., group=1))
 ```
-Huomaa, fill=bigregion ei enää, toimi, koska muuttujassa ei ole enää useampaa luokkaa, vaan yksi dummy!
+Huomaa, fill=bigregion ei enaa, toimi, koska muuttujassa ei ole enaa useampaa luokkaa, vaan yksi dummy!
 
 ### Frequency plots the slightly awkward way
 
-fill-parametrin paras käyttökohde on kolmannen muuttujan tuominen kuvaajaan värittämällä kaavion pylväät sen mukaan
+fill-parametrin paras kayttökohde on kolmannen muuttujan tuominen kuvaajaan varittamalla kaavion pylvaat sen mukaan
 
 ```{r}
 p <- ggplot(gss_sm, mapping = aes(bigregion, fill = religion))
 p + geom_bar()
 ```
 
-Pinottu pylväs on pylväsdiagrammin oletus. Tätä voidaan muuttaa "position"-argumentilla
+Pinottu pylvas on pylvasdiagrammin oletus. Tata voidaan muuttaa "position"-argumentilla
 
 ```{r}
 p <- ggplot(gss_sm, mapping = aes(bigregion, fill = religion))
 p + geom_bar(position = "fill")
 ```
-Vertailu ryhmien sisällä on näin helppoa, mutta ryhmien kesken vaikeaa. "dodge" asettaa pylväät rinnakkain, mutta sellaisenaan se antaa datan lukumäärät
+Vertailu ryhmien sisalla on nain helppoa, mutta ryhmien kesken vaikeaa. "dodge" asettaa pylvaat rinnakkain, mutta sellaisenaan se antaa datan lukumaarat
 
 ```{r}
 p <- ggplot(gss_sm, mapping = aes(bigregion, fill = religion))
 p + geom_bar(position = "dodge")
 ```
 
-Kun y-akselille asetetaan osuudet "y=..prop..", tulee funktiolle myös kertoa, mille ryhmille osuuksia (summautuu 100%:iin) lasketaan. Koska osuudet piirretään eri uskonnoille, uskonto on ryhmittelevä tekijä.
+Kun y-akselille asetetaan osuudet "y=..prop..", tulee funktiolle myös kertoa, mille ryhmille osuuksia (summautuu 100%:iin) lasketaan. Koska osuudet piirretaan eri uskonnoille, uskonto on ryhmitteleva tekija.
 
 ```{r}
 p <- ggplot(gss_sm, mapping = aes(bigregion, fill = religion))
@@ -441,7 +443,7 @@ p + geom_bar(position = "dodge", mapping = aes(y=..prop.., group = bigregion)) +
 
 ### Histograms and density plots
 
-Histogrammi kuvaa jatkuvia muuttujia. (Pylväskuvaajalla kuvataan luokittelevia muuttuja.) Histogrammiin määritetään "bin", eli jakso, tai "säilö", jonka sisään osuvia havaintoja rtarkastellaan. Bin:in lukumäärä (eli koko) vaikuttaa datasta tehtyyn kuvaajiin.
+Histogrammi kuvaa jatkuvia muuttujia. (Pylvaskuvaajalla kuvataan luokittelevia muuttuja.) Histogrammiin maaritetaan "bin", eli jakso, tai "sailö", jonka sisaan osuvia havaintoja rtarkastellaan. Bin:in lukumaara (eli koko) vaikuttaa datasta tehtyyn kuvaajiin.
 
 ```{r}
 p <- ggplot(midwest, mapping = aes(x=area))
@@ -453,7 +455,7 @@ p <- ggplot(midwest, mapping = aes(x=area))
 p + geom_histogram(bins = 10)
 ```
 
-Fasettien lisäksi histogrammeja voi esittää useamman kerralla piirtämällä niitä päällekkäin.
+Fasettien lisaksi histogrammeja voi esittaa useamman kerralla piirtamalla niita paallekkain.
 
 ```{r}
 oh_wi <- c("OH", "WI")
@@ -465,14 +467,14 @@ p + geom_histogram(alpha = 0.4, bins = 20)
 
 ### Tiheysfunktio
 
-Toinen mielekäs tapa kuvata jatkuvia muuttujia on tiheysfunktio. Wikipedia: "Tiheysfunktioiden arvot eivät itsessään ole todennäköisyyksiä, mutta tiheysfunktion avulla voidaan laskea todennäköisyydet käyttämällä määrättyä integraalia. Tiheysfunktio määrittelee satunnaismuuttujan täysin, ja sen avulla voidaan määrittää satunnaismuuttujan kaikki ominaisuudet." **Tiheysfunktion pinta-ala on 1**
+Toinen mielekas tapa kuvata jatkuvia muuttujia on tiheysfunktio. Wikipedia: "Tiheysfunktioiden arvot eivat itsessaan ole todennaköisyyksia, mutta tiheysfunktion avulla voidaan laskea todennaköisyydet kayttamalla maarattya integraalia. Tiheysfunktio maarittelee satunnaismuuttujan taysin, ja sen avulla voidaan maarittaa satunnaismuuttujan kaikki ominaisuudet." **Tiheysfunktion pinta-ala on 1**
 
 ```{r}
 p <- ggplot(midwest, mapping = aes(x=area))
 p + geom_density()
 ```
 
-Väreillä saa kuvaajaan lisäinformaatioita. Huom: **fill täyttää, color määrää reunat**
+Vareilla saa kuvaajaan lisainformaatioita. Huom: **fill tayttaa, color maaraa reunat**
 
 ```{r}
 p <- ggplot(midwest, mapping = aes(area, fill=state, color = state))
@@ -492,7 +494,7 @@ p <- ggplot(data = subset(midwest, subset = state %in% oh_wi),
 p + geom_density(alpha = 0.3, mapping = (aes(y = ..scaled..)))
 ```
 
-Usein data on jo valmiiksi koostetaulukko. Sillon kannattaa käyttää geom_col:ia, joka vastaa geom_bar:ia, mutta jossa oletuksen a on stat = "identity", eli joka *ei laske datalla*
+Usein data on jo valmiiksi koostetaulukko. Sillon kannattaa kayttaa geom_col:ia, joka vastaa geom_bar:ia, mutta jossa oletuksen a on stat = "identity", eli joka *ei laske datalla*
 
 ```{r}
 glimpse(oecd_sum)
@@ -514,7 +516,7 @@ p + geom_col() + guides(fill = FALSE) +
 
 Muokataan dataa itse, fokuksessa dplyr ja %>% 
 
-Tehdään gss_sm:stä uusi data
+Tehdaan gss_sm:sta uusi data
 
 ```{r}
 rel_by_region <- gss_sm %>%
@@ -526,9 +528,9 @@ rel_by_region <- gss_sm %>%
 head(gss_sm)
 head(rel_by_region)
 ```
-Huomaa, että group_by ottaa kaksi saraketta muuttujaksi! Sarake pct perustuu freq:iin.
+Huomaa, etta group_by ottaa kaksi saraketta muuttujaksi! Sarake pct perustuu freq:iin.
 
-Jokaisessa bigregion-ryhmässä uskontojen osuudet summautuvat noin sataan (huom. pyöristys aikaisemmin.)
+Jokaisessa bigregion-ryhmassa uskontojen osuudet summautuvat noin sataan (huom. pyöristys aikaisemmin.)
 
 ```{r}
 rel_by_region %>% group_by(bigregion) %>% summarize(total = sum(pct))
@@ -544,9 +546,9 @@ p + geom_col(position = "dodge2") +
   labs(x = "Alue", y = "Osuus", fill= "Uskonto") + theme(legend.position = "top")
 ```
 
-Kvaaja on sinänsä hyvä, mutta siinä on liikaa informaatiota. *As a rule, dodged charts can be more cleanly expressed as faceted plots.*
+Kuvaaja on sinansa hyva, mutta siina on liikaa informaatiota. *As a rule, dodged charts can be more cleanly expressed as faceted plots.*
 
-Huomaa, että nyt x-muuttuja vaihtuu
+Huomaa, etta nyt x-muuttuja vaihtuu
 
 ```{r}
 p <- ggplot(rel_by_region, aes(religion, pct, fill = religion))
@@ -567,9 +569,9 @@ p <- ggplot(organdata, mapping = aes(x=country, y=donors))
 p+geom_boxplot() + coord_flip()
 ```
 
-Käytetään **reorder-funktiota** kuvaajan järjestämiseen. Reorder ottaa kaksi arkumenttia, järjestettävän asian  ja muuttujan, jolla data järjestetään. Oletusarvoisesti järjestämiseen käytetään muuttujan keskiarvoa. Myös muita funktioita voi käyttää, esim. median tai sd. 
+Kaytetaan **reorder-funktiota** kuvaajan jarjestamiseen. Reorder ottaa kaksi arkumenttia, jarjestettavan asian  ja muuttujan, jolla data jarjestetaan. Oletusarvoisesti jarjestamiseen kaytetaan muuttujan keskiarvoa. Myös muita funktioita voi kayttaa, esim. median tai sd. 
 
-Huomaa, että reorderille pitää erikseen sanoa NA:iden poistamisesta!
+Huomaa, etta reorderille pitaa erikseen sanoa NA:iden poistamisesta!
 
 **We are reordering the variable we are mapping to the x aesthetic, so we use reorder() at that point in our code**
 
@@ -588,7 +590,7 @@ p + geom_boxplot() + labs(x=NULL) +
     coord_flip() + theme(legend.position = "top")
 ```
 
-Jos havaintoja on vähän, boxplotin voi korvata pistekuvaajalla (kirjoittajan mukaan)
+Jos havaintoja on vahan, boxplotin voi korvata pistekuvaajalla (kirjoittajan mukaan)
 
 ```{r}
 p <- ggplot(data = organdata,
@@ -600,7 +602,7 @@ p + geom_jitter(position = position_jitter(width=0.15)) + labs(x=NULL) +
 
 ### Cleveland dotplot
 
-Kirjoittajan mukaan parempi kuin pylväsdiagrammi tai taulukko(!) kun halutaan esittää summatason tuloksia luokittelumuuttujasta. esim. keskiarvo, keskihajonta.
+Kirjoittajan mukaan parempi kuin pylvasdiagrammi tai taulukko(!) kun halutaan esittaa summatason tuloksia luokittelumuuttujasta. esim. keskiarvo, keskihajonta.
 
 ```{r}
 by_country <- organdata %>% group_by(consent_law, country) %>%
@@ -614,7 +616,7 @@ by_country <- organdata %>% group_by(consent_law, country) %>%
 head(by_country)
 ```
 
-Datan luovassa koodissa on toistoa. sen voi poistaa *apply*-tyylisellä rarkaisulla: 
+Datan luovassa koodissa on toistoa. sen voi poistaa *apply*-tyylisella rarkaisulla: 
 
 ```{r}
 by_country <- organdata %>% group_by(consent_law, country) %>% summarize_if(is.numeric, list(mean, sd), na.rm=T) %>% ungroup
@@ -639,7 +641,7 @@ p + geom_point(size=3) +
 
 **Cleveland dotplots are generally preferred to bar or column charts. When making them, put the categories on the y-axis and order them in the way that is most relevant to the numerical summary you are providing.** This sort of plot is also an excellent way to summarize model results or any data with with error ranges.
 
-Boxplotia yksinkertasempi tapa esittää keskiarvo ja keskihajonta on geom_pointrange, johon saadaan vaihteluväli.
+Boxplotia yksinkertasempi tapa esittaa keskiarvo ja keskihajonta on geom_pointrange, johon saadaan vaihteluvali.
 
 ```{r}
 p <- ggplot(by_country, mapping=aes(x = reorder(country, donors_fn1), y=donors_fn1))
@@ -648,7 +650,7 @@ p + geom_pointrange(mapping = aes(ymin=donors_fn1 - donors_fn2, ymax= donors_fn1
   
 ```
 
-Kuvaajia voi piirtää päällekkäin. Alla esimerkissä geom_point ja geom_text
+Kuvaajia voi piirtaa paallekkain. Alla esimerkissa geom_point ja geom_text
 
 ```{r}
 p <- ggplot(by_country, aes(roads_fn1, donors_fn1))
@@ -662,7 +664,7 @@ p <- ggplot(by_country, aes(roads_fn1, donors_fn1))
 p + geom_point() + geom_text(aes(label = country), hjust=0)
 ```
 
-geom_text on oikeastan melko huono tekstin piirtäjä, parempi on geom_text_repel. Se huolehtii siitä, että tekstit eivät tule päällekkäin.
+geom_text on oikeastan melko huono tekstin piirtaja, parempi on geom_text_repel. Se huolehtii siita, etta tekstit eivat tule paallekkain.
 
 
 ```{r}
@@ -684,7 +686,7 @@ p + geom_hline(yintercept = 0.5, size = 1.4, color = "gray") + geom_vline(xinter
          caption = p_caption)
 ```
 
-Samaan kuvaan voi piirtää myös geomeja, jotka käyttävät eri dataa, tao eri osia datasta
+Samaan kuvaan voi piirtaa myös geomeja, jotka kayttavat eri dataa, tao eri osia datasta
 
 ```{r}
 p <- ggplot(by_country, aes(gdp_fn1, health_fn1))
@@ -703,7 +705,7 @@ p + geom_point() +
                     mapping = aes(label = country))
 ```
 
-Dataan voi myös luoda dummymuuttujan, jonka avulla kuvaajaan lisätään tietoa
+Dataan voi myös luoda dummymuuttujan, jonka avulla kuvaajaan lisataan tietoa
 
 ```{r}
 organdata$ind <- organdata$ccode %in% c("Ita", "Spa") 
@@ -714,7 +716,7 @@ p <- ggplot(data = organdata,
 p + geom_point() + geom_text_repel(data = subset(organdata, ind), aes(label = ccode)) + guides(label = F, color = F)
 ```
 
-"annotate" mahdollistaa tekstin ja muiden lisämerkintöjen laittamisen kuvaajaan. Se hyödyntää geom_text:iä ja muita geomeita.
+"annotate" mahdollistaa tekstin ja muiden lisamerkintöjen laittamisen kuvaajaan. Se hyödyntaa geom_text:ia ja muita geomeita.
 
 ```{r}
 p <- ggplot(data = organdata, mapping = aes(x = roads, y = donors))
@@ -726,7 +728,7 @@ p + geom_point() + annotate(geom = "text", x = 91, y = 33,
 ```{r}
 p <- ggplot(organdata, aes(roads, donors))
 
-p + geom_point() + annotate(geom = "rect", xmin=125, xmax=155, ymin=30, ymax=35, fill="orange", alpha = 0.3) + annotate(geom= "text", x = 157, y= 33, label= "Yllättävän korkea \n selviytymisaste", hjust = 0)
+p + geom_point() + annotate(geom = "rect", xmin=125, xmax=155, ymin=30, ymax=35, fill="orange", alpha = 0.3) + annotate(geom= "text", x = 157, y= 33, label= "Yllattavan korkea \n selviytymisaste", hjust = 0)
 ```
 
 **What are the differences between the scale_ functions, the guides() function, and the theme() function?**
@@ -745,9 +747,9 @@ p <- ggplot(data = organdata,
 p + geom_point()
 ```
 
-Kuvaajaa yllä "shows a plot with three aesthetic mappings. The variable roads is mapped to x; donors is mapped to y; and world is mapped to color." --> **kolme muuttujaa, kolme asteikkoa!**
+Kuvaajaa ylla "shows a plot with three aesthetic mappings. The variable roads is mapped to x; donors is mapped to y; and world is mapped to color." --> **kolme muuttujaa, kolme asteikkoa!**
 
-Asteikkoja(akseleita) voi säätää:
+Asteikkoja(akseleita) voi saataa:
 
 ```{r}
 p <- ggplot(data = organdata,
@@ -760,7 +762,7 @@ p + geom_point() +
                        labels = c("Five", "Fifteen", "Twenty Five"))
 ```
 
-Myös väri- ja muotoasteikkoja voi säätää
+Myös vari- ja muotoasteikkoja voi saataa
 
 ```{r}
 p <- ggplot(data = organdata,
@@ -798,7 +800,7 @@ p + geom_point(alpha=0.1) +
                   lambda = 1, quantiles = c(0.20, 0.5, 0.85))
 ```
 
-Malleja voi sovittaa useamman kuvaajaan ja lisätä niille legendat
+Malleja voi sovittaa useamman kuvaajaan ja lisata niille legendat
 
 ```{r}
 model_colors <- RColorBrewer::brewer.pal(3, "Set1")
@@ -820,15 +822,120 @@ p1 + scale_color_manual(name = "Models", values = model_colors) +
     theme(legend.position = "top")
 ```
 
-Figures based on statistical models face all the ordinary challenges of effective data visualization, and then some. This is because model results usually carry a considerable extra burden of interpretation and necessary background knowledge. The more complex the model, the trickier it becomes to convey this information effectively, and the easier it becomes to lead one’s audience or oneself into error.
+#### Look inside model objects
+
+We can create a linear model, an ordinary OLS regression, using the gapminder data. This dataset has a country-year structure that makes an OLS specification like this the wrong one to use **(MIKSI?)**. But never mind that for now. We use the lm() function to run the model, and store it in an object called out:
+
+```{r}
+out <- lm(formula = lifeExp ~ gdpPercap + pop + continent,
+          data = gapminder)
+
+summary(out)
+```
+
+**When we use the summary() function on out, we are not getting a simple feed of what’s in the model object.** Instead, like any function, summary() takes its input, performs some actions, and produces output. In this case, what is printed to the console is partly information that is stored inside the model object, and partly information that the summary() function has calculated and formated for display on the screen. Behind the scenes, summary() gets help from other functions. Objects of different classes have default methods associated with them, so that when the generic summary() function is applied to a linear model object, the function knows to pass the work on to a more specialized function that does a bunch of calculations and formatting appropriate to a linear model object. 
+
+**str() paljastaa rakenteen** mutta objektin elementitkin voivat olla listoja.
+
+```{r}
+names(out)
+str(out)
+```
+
+
+#### Get model-based graphics right
+
+Figures based on statistical models face all the ordinary challenges of effective data visualization, and then some. This is because **model results usually carry a considerable extra burden of interpretation and necessary background knowledge.** The more complex the model, the trickier it becomes to convey this information effectively, and the easier it becomes to lead one’s audience or oneself into error.
 
 Some kinds of models are quite tricky to understand, even ones that had previously been seen as straightforward elements of the modeling toolkit (Ai & Norton, 2003; Brambor, Clark, & Golder, 2006).
 
 Plotting model estimates is closely connected to properly estimating models in the first place. This means **there is no substitute for learning the statistics. You should not use graphical methods as a substitute for understanding the model used to produce them.**
 
+#### Present your findings in substantive terms
+
 Presenting substantively interpretable findings often also means using (and sometimes converting to) a scale that readers can easily understand. If your model reports **results in log-odds**, for example, converting the estimates **to predicted probabilities** will make it easier to interpret.
 
-A family of related ggplot geoms allow you to show a range or interval defined by position on the x-axis and then a ymin and ymax range on the y-axis. These geoms include **geom_pointrange()** and **geom_errorbar()**, which we will see in action shortly. A related geom, geom_ribbon() uses the same arguments to draw filled areas, and is useful for plotting ranges of y-axis values along some continuously varying x-axis.
+#### Show your degree of confidence
+
+Model estimates come with various measures of precision, confidence, credence, or significance. Presenting and interpreting these measures is notoriously prone to misinterpretation, or over-interpretation, as researchers and audiences both demand more from things like confidence intervals and p-values than these statistics can deliver. At a minimum, having decided on an appropriate measure of model fit or the right assessment of confidence, you should show their range when you present your results. A family of related ggplot geoms allow you to show a range or interval defined by position on the x-axis and then a ymin and ymax range on the y-axis. These geoms include **geom_pointrange()** and **geom_errorbar()**, which we will see in action shortly. A related geom, geom_ribbon() uses the same arguments to draw filled areas, and is useful for plotting ranges of y-axis values along some continuously varying x-axis.
+
+#### Show your data when you can
+
+The way ggplot builds graphics layer by layer allows us to easily combine model estimates (e.g. a regression line and an associated range) and the underlying data. 
+
+### 6.4 Generate predictions to graph
+
+Having fitted a model, then, we might want to get a picture of the estimates it produces over the range of some particular variable, holding other covariates constant at some sensible values. The **predict()** function is a generic way of using model objects to produce this kind of prediction. Geneerinen funktio = toimii erilaisille tietorakenteille, antaa jokaiselle sovitetun tulosteen. Esim. summary, str, ja predict.
+
+For predict() to calculate the new values for us, it needs some new data to fit the model to.  A very useful function called **expand.grid()** will help us do this. We will give it a list of variables, specifying the range of values we want each variable to take. Then expand.grid() will generate the will multiply out the full range of values for all combinations of the values we give it.
+
+
+
+
+
+
+
+
+
+### 6.7 Plot marginal effects
+
+Over the past decade, estimating and plotting partial or marginal effects from a model has become an increasingly common way of presenting accurate and interpretively useful predictions. Interest in marginal effects plots was stimulated by the realization that the interpretation of terms in logistic regression models, in particular, was trickier than it seemed.
+
+Marginal effect (=Rajavaikutus) voidaan piirtaa Thomas Leeprein "margins"-paketin avulla. Logistinen regressio tehdaan gss_sm-dataan. Alla omia tarkasteluja mallin muuttujiin
+
+```{r, logistinen regressio, oma 1}
+muuttujat <- select(gss_sm, obama, sex, race, polviews)
+str(muuttujat)
+```
+Huom! Muuttujat faktoreita! Referenssiarvoksi valikoituu faktorin ensimmainen taso, jos toisin ei maarieta. Muuttujalle polviews tehdaan niin:
+
+```{r, logistinen regressio, oma 2}
+muuttujat$polviews_m <- relevel(gss_sm$polviews, ref = "Moderate")
+str(muuttujat)
+```
+
+Palataan kirjan koodiin:
+
+"We fit the model with the glm() function, and specify an **interaction** between race and sex."
+
+"Tilastollinen interaktio tarkoittaa, etta emme voi tarkastella pelkastaan tekijöiden paavaikutuksia erillisina, vaan meidan on otettava huomioon myös muiden tekijöiden vaikutus yhta tekijaa tarkastellessamme" <http://cc.oulu.fi/~jarioksa/opetus/rekola/html-opas/node58.html>
+
+Muuttujat voivat siis tehostaa tai heikentaa toistensa vaikutusta vastemuuttujaan, mika pitaisi huomioida mallissa!
+
+Interaktioita voi etsia pairs-kuvaajalla, tai paatöspuulla
+```{r, logistinen regressio, oma 3}
+pairs(muuttujat)
+# ei toimi kovin hyvin kun muuttujat ovat diskreetteja!!!
+```
+```{r}
+library(tree)
+fit <- tree(obama~., data = muuttujat)
+summary(fit)
+plot(fit)
+text(fit, splits = TRUE)
+# interaktioiden tutkimiseeen: http://www3.imperial.ac.uk/pls/portallive/docs/1/1171924.PDF
+```
+```{r}
+fit2 <- tree(obama~., data = subset(gss_sm, select = -pres12))
+summary(fit2)
+plot(fit2)
+text(fit2)
+```
+
+
+```{r}
+gss_sm$polviews_m <- relevel(gss_sm$polviews, ref = "Moderate")
+
+out_bo <- glm(obama ~ polviews_m + sex*race, family = binomial, data = gss_sm)
+
+summary(out_bo)
+```
+
+Lasketaan muuttujien rajavaikutukset
+```{r}
+bo_m <- margins::margins(out_bo)
+summary(bo_m)
+```
 
 ## Draw Maps
 

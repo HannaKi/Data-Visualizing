@@ -1,8 +1,0 @@
-"0","p <- ggplot(data = organdata,"
-"0","            mapping = aes(x = roads,"
-"0","                          y = donors,"
-"0","                          color = world))"
-"0","p + geom_point() +"
-"0","    scale_x_log10() +"
-"0","    scale_y_continuous(breaks = c(5, 15, 25),"
-"0","                       labels = c(""Five"", ""Fifteen"", ""Twenty Five""))"
