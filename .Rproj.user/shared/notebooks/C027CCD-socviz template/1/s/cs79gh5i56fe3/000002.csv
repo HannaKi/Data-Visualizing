@@ -1,0 +1,42 @@
+"0","library(tree)"
+"2","Registered S3 method overwritten by 'tree':
+  method     from
+  print.tree cli 
+"
+"0","fit <- tree(obama~., data = muuttujat)"
+"0","summary(fit)"
+"1","
+Regression tree:
+"
+"1","tree(formula = obama ~ ., data = muuttujat)
+"
+"1","Variables actually used in tree construction:
+"
+"1","[1]"
+"1"," ""polviews"""
+"1"," ""race""    "
+"1","
+"
+"1","Number of terminal nodes:  5 
+"
+"1","Residual mean deviance:  0.1312 = 222.2 / 1693 
+"
+"1","Distribution of residuals:
+"
+"1","    Min. "
+"1"," 1st Qu. "
+"1","  Median "
+"1","    Mean "
+"1"," 3rd Qu. "
+"1","    Max. "
+"1","
+"
+"1","-0.96410 "
+"1","-0.19490 "
+"1"," 0.06767 "
+"1"," 0.00000 "
+"1"," 0.06767 "
+"1"," 0.80510 "
+"1","
+"
+"0","plot(fit)"

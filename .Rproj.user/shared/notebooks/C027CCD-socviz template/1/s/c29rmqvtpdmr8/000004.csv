@@ -1,0 +1,2 @@
+"0","p <- ggplot(by_country, mapping=aes(x = reorder(country, donors_fn1), y=donors_fn1))"
+"0","p + geom_pointrange(mapping = aes(ymin=donors_fn1 - donors_fn2, ymax= donors_fn1 + donors_fn2)) + coord_flip() + labs(x=NULL, y = ""elinluovuttajat"")"

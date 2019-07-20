@@ -1,0 +1,9 @@
+"0","if(!require(pacman))install.packages(""pacman"")"
+"0","pacman::p_load('tidyverse', 'networkD3', 'tabulizer', 'devtools')"
+"0","install_github(""Displayr/flipPlots"")"
+"2","Skipping install of 'flipPlots' from a github remote, the SHA1 (168ee610) has not changed since last install.
+  Use `force = TRUE` to force installation
+"
+"0","library(tabulizer)"
+"0","library(tidyverse)"
+"0","library(networkD3)"

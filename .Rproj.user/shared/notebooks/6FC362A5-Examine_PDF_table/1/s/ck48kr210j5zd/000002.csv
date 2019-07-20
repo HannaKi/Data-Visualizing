@@ -1,0 +1,8 @@
+"0","# https://www.r-bloggers.com/how-to-create-sankey-diagrams-from-tables-data-frames-using-r/"
+"0","my.data = data.frame(Married = c(""Yes"",""Yes"", ""Yes"", ""No"", ""No""),"
+"0","    Pet = c(""Yes"", ""Yes"", ""No"", ""Yes"", ""No""),"
+"0","    Happy = c(""Yes"", ""Yes"", ""Yes"", ""Yes"", ""No""),"
+"0","    freq = 5:1)"
+"0","flipPlots::SankeyDiagram(my.data[, -4],"
+"0","              link.color = ""Source"","
+"0","              weights = my.data$freq)"

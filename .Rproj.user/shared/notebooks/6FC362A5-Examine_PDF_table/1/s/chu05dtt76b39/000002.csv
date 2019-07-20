@@ -1,0 +1,8 @@
+"0","# interaktiivinen kokeilu, ohje:"
+"0","# https://christophergandrud.github.io/networkD3/"
+"0","src <- c(""A"", ""A"", ""A"", ""A"","
+"0","        ""B"", ""B"", ""C"", ""C"", ""D"")"
+"0","target <- c(""B"", ""C"", ""D"", ""J"","
+"0","            ""E"", ""F"", ""G"", ""H"", ""I"")"
+"0","networkData <- data.frame(src, target)"
+"0","simpleNetwork(networkData)"

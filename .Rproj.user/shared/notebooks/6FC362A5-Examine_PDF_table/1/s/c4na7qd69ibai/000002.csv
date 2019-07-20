@@ -1,2 +1,2 @@
-"0","temp <- incomeSta"
 "0","incomeSta$thousand_euro <- gsub("" "", """", incomeSta$thousand_euro)"
+"0","incomeSta$thousand_euro <- as.numeric(incomeSta$thousand_euro)"

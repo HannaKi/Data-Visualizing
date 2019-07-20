@@ -869,12 +869,56 @@ Having fitted a model, then, we might want to get a picture of the estimates it 
 
 For predict() to calculate the new values for us, it needs some new data to fit the model to.  A very useful function called **expand.grid()** will help us do this. We will give it a list of variables, specifying the range of values we want each variable to take. Then expand.grid() will generate the will multiply out the full range of values for all combinations of the values we give it.
 
+```{r}
+min_gdp <- min(gapminder$gdpPercap)
+max_gdp <- max(gapminder$gdpPercap)
+med_pop <- median(gapminder$pop)
+
+pred_df <- expand.grid(gdpPercap = (seq(from = min_gdp,
+                                        to = max_gdp,
+                                        length.out = 100)),
+                       pop = med_pop,
+                       continent = c("Africa", "Americas",
+                                     "Asia", "Europe", "Oceania"))
+```
+
+```{r}
+pred_out <- predict(object = out,
+                    newdata = pred_df,
+                    interval = "predict")
+head(pred_out)
+```
+
+Because we know that, by construction, the cases in pred_df and pred_out correspond row for row, we can bind the two data frames together by column. This method of joining or merging tables is definitely not recommended when you are dealing with data.
+
+```{r}
+pred_df <- cbind(pred_df, pred_out)
+head(pred_df)
+```
+
+```{r}
+p <- ggplot(data = subset(pred_df, continent %in% c("Europe", "Africa")),
+            aes(x = gdpPercap,
+                y = fit, ymin = lwr, ymax = upr,
+                color = continent,
+                fill = continent,
+                group = continent))
+
+p + geom_point(data = subset(gapminder,
+                             continent %in% c("Europe", "Africa")),
+               aes(x = gdpPercap, y = lifeExp,
+                   color = continent),
+               alpha = 0.5,
+               inherit.aes = FALSE) + 
+    geom_line() +
+    geom_ribbon(alpha = 0.2, color = FALSE) +
+    scale_x_log10(labels = scales::dollar)
+```
 
 
+### 6.5 Tidy model objects with broom
 
-
-
-
+broom is a library of functions that help us get from the model results that R generates to numbers that we can plot
 
 
 ### 6.7 Plot marginal effects

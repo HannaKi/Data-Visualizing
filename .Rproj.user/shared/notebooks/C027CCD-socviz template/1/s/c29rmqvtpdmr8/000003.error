@@ -1,1 +1,0 @@
-{"frames":[{"character_number":0,"end_character_number":0,"end_line_number":0,"file":"","func":"ggplot(by_country, mapping = aes(x = reorder(country, donors_fn1), \n    y = donors_fn1))","line_number":0}],"message":"Error in ggplot(by_country, mapping = aes(x = reorder(country, donors_fn1),  : \n  object 'by_country' not found\n"}

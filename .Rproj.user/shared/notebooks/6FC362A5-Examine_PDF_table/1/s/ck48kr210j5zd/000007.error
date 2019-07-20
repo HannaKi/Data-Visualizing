@@ -1,1 +1,0 @@
-{"frames":[{"character_number":0,"end_character_number":0,"end_line_number":0,"file":"","func":"flipPlots::SankeyDiagram(my.data[, -4], link.color = \"Source\", \n    label.show.varname = FALSE, weights = my.data.2$freq)","line_number":0}],"message":"Error in flipPlots::SankeyDiagram(my.data[, -4], link.color = \"Source\",  : \n  object 'my.data.2' not found\n"}

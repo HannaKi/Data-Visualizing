@@ -1,4 +1,3 @@
-"0","incomeSta$thousand_euro <- ifelse(incomeSta$class == ""in"", incomeSta$thousand_euro*(1), incomeSta$thousand_euro*(-1)))
-"
-"2","Error: unexpected ')' in ""incomeSta$thousand_euro <- ifelse(incomeSta$class == ""in"", incomeSta$thousand_euro*(1), incomeSta$thousand_euro*(-1)))""
-"
+"0","incomeSta$class <- NA"
+"0","incomeSta$class <- ifelse(incomeSta$thousand_euro > 0, c(""in""), c(""out""))"
+"0","incomeSta$thousand_euro <- ifelse(incomeSta$class == ""in"", incomeSta$thousand_euro*(1), incomeSta$thousand_euro*(-1))"
