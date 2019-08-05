@@ -920,6 +920,110 @@ p + geom_point(data = subset(gapminder,
 
 broom is a library of functions that help us get from the model results that R generates to numbers that we can plot
 
+```{r}
+library(broom)
+```
+
+
+Broom takes ggplot’s approach to tidy data and extends it to the model objects that R produces. Its methods can tidily extract three kinds of information. 
+
+- First, we can see **component-level** information about aspects of the model itself, such as coefficients and t-statistics. 
+- Second, we can obtain **observation-level** information about the model’s connection to the underlying data. This includes the fitted values and residuals for each observation in the data. 
+- And finally we can get **model-level** information that summarizes the fit as a whole, such as an F-statistic, the model deviance, or the r-squared. There is a broom function for each of these tasks.
+
+#### 6.5.1 Get component-level statistics with tidy()
+
+```{r}
+out_comp <- out %>% tidy() %>% round_df()
+
+out_comp
+```
+
+```{r}
+p <- ggplot(out_comp, aes(x = term, y= estimate)) +
+  geom_point() + coord_flip()
+
+p
+```
+We can extend and clean up this plot in a variety of ways. For example, we can tell tidy() to calculate confidence intervals for the estimates, using R’s confint() function.
+
+```{r}
+out_conf <- out %>% tidy(conf.int = T) %>% round_df()
+
+out_conf
+```
+```{r}
+# Huomaa tässä hyädylliset socviz-kirjaston %nin% ja prefix_strip -funktiot!
+out_conf <- out_conf %>% subset(term %nin% "(Intercept)") %>% mutate(nicelabs = prefix_strip(out_conf$term, "continent"))
+
+out_conf
+```
+```{r, fig.height= 3}
+p <- ggplot(out_conf, aes(x=reorder(nicelabs, estimate), y=estimate, ymin=conf.low, ymax = conf.high)) + 
+  geom_pointrange() + coord_flip() + labs(x="", y="OLS Estimate")
+
+p
+```
+
+#### 6.5.2 Get observation-level statistics with augment()
+
+The values returned by augment() are all statistics calculated at the level of the original observations. As such, they can be added on to the data frame that the model is based on. **Working from a call to augment() will return a data frame with all the original observations** used in the estimation of the model, together with model statistics
+
+- .fitted — The fitted values of the model.
+- .se.fit — The standard errors of the fitted values.
+- .resid — The residuals. (Paljonko havainto eroaa estimaatista)
+- .hat — The diagonal of the hat matrix.
+- .sigma — An estimate of residual standard deviation when the corresponding observation is dropped from the model.
+- .cooksd — Cook’s distance, a common regression diagnostic;(In statistics, Cook's distance or Cook's D is a commonly used estimate of the influence of a data point when performing a least-squares regression analysis. In a practical ordinary least squares analysis, Cook's distance can be used in several ways: to indicate influential data points that are particularly worth checking for validity; or to indicate regions of the design space where it would be good to be able to obtain more data points.)
+- .std.resid — The standardized residuals.
+
+```{r}
+out_aug <- augment(out)
+head(out_aug) %>% round_df()
+```
+
+The new columns created by augment() can be used to create some standard regression plots. For example, we can plot the residuals versus the fitted values. Figure below suggests, unsurprisingly, that our country-year data has rather more structure than is captured by our OLS model.
+
+```{r}
+p <- ggplot(out_aug, aes(x = .fitted, y = .resid)) + geom_point()
+
+p
+```
+
+```{r}
+p <- ggplot(out_aug, aes(x = .fitted, y = .resid, color = continent)) + geom_point()
+
+p
+```
+
+#### 6.5.3 Get model-level statistics with glance()
+
+This function organizes the information typically presented at the bottom of a model’s summary() output. By itself, it usually just returns a table with a single row in it. 
+
+### 6.6 Grouped analysis and list columns
+
+Broom makes it possible to quickly fit models to different subsets of your data and get consistent and usable tables of results out the other end. 
+
+Käsin ryhmittelyn sijaan dataa voidaan ryhmitellä dplyrin group_by() ja **nest()** funktioiden avulla
+
+```{r}
+out_le <- gapminder %>% group_by(country, year) %>% nest()
+
+out_le
+```
+
+datasta tulee ryhmittelevien muuttujien erottelema useampi osadata (lista)! Ykisttäistä dataa voi tarkastella **unnest()** funktiolla.
+
+```{r}
+out_le %>% filter(continent == "Europe" & year == 1977) %>% unnest()
+```
+
+
+
+
+
+
+
 
 ### 6.7 Plot marginal effects
 

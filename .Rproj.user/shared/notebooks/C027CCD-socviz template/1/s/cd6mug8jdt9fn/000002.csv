@@ -1,0 +1,2 @@
+"0","out_aug <- augment(out)"
+"0","head(out_aug) %>% round_df()"

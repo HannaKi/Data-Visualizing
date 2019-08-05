@@ -1,0 +1,3 @@
+"0","p <- ggplot(out_comp, aes(x = term, y= estimate)) +"
+"0","  geom_point() + coord_flip()"
+"0","p"

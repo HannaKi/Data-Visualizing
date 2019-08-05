@@ -1,1 +1,0 @@
-{"conditions":[[0,"`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = \"cs\")'\n"],[1,"Removed 18 rows containing non-finite values (stat_smooth)."],[1,"Removed 18 rows containing missing values (geom_point)."]],"height":5.000000000000000,"size_behavior":1,"width":8.000000000000000}

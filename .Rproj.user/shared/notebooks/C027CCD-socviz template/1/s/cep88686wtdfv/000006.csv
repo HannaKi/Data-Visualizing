@@ -1,0 +1,3 @@
+"0","p <- ggplot(out_conf, aes(x=reorder(nicelabs, estimate), y=estimate, ymin=conf.low, ymax = conf.high)) + "
+"0","  geom_pointrange() + coord_flip() + labs(x="""", y=""OLS Estimate"")"
+"0","p"

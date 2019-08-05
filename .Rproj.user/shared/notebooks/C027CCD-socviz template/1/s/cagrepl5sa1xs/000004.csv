@@ -1,0 +1,2 @@
+"0","p <- ggplot(out_aug, aes(x = .fitted, y = .resid, color = continent)) + geom_point()"
+"0","p"
